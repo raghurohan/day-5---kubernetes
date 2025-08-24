@@ -5,7 +5,7 @@ on:
 jobs:
 
   build:
-    runs-on: ubuntu-latest
+    runs-on: assignment # give label for running this job on your self hosted EC2 runner
     steps:
      - name: Checkout the java code
        uses: actions/checkout@v5.0.0
