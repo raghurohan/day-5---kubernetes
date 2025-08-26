@@ -1,4 +1,4 @@
-name: CI/CD Python Application   # Name of the workflow shown in GitHub Actions tab
+name: nginx                     # Name of the workflow shown in GitHub Actions tab
 
 on:                             # Events that trigger this workflow
   push:                         # Run workflow whenever code is pushed
