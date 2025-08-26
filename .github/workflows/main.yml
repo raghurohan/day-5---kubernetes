@@ -1,0 +1,42 @@
+name: CI/CD Python Application   # Name of the workflow shown in GitHub Actions tab
+
+on:                             # Events that trigger this workflow
+  push:                         # Run workflow whenever code is pushed
+  workflow_dispatch:            # Also allow manual trigger from GitHub Actions UI
+
+jobs:
+  ci-cd:                        # Job name
+    runs-on: ubuntu-latest      # Run this job in a fresh Ubuntu VM hosted by GitHub
+
+
+    steps:                      # Each step runs in order
+      - name: Checkout Code     # Step 1: Get source code from GitHub
+        uses: actions/checkout@v4.2.2  # Official GitHub Action to pull repo code
+
+
+      - name: Setup Kubectl for kubernetes   # Step 5: Install kubectl CLI tool
+        uses: azure/setup-kubectl@v3
+        with:
+          version: 'latest'    # Always fetch latest kubectl version
+
+      - name: Setup Minikube   # Step 6: Start a local Kubernetes cluster inside runner
+        run: |
+          minikube start                           # Start Minikube
+          kubectl config use-context minikube      # Use minikube cluster as kubectl context
+
+      - name: Deploy to Kubernetes   # Step 7: Apply your manifests
+        run: |
+          kubectl apply -f k8s/deployment.yml      # Deploy your app pods
+          kubectl apply -f k8s/service.yml         # Expose service for the app
+
+      - name: Wait for Pods Ready   # Step 8: Ensure pods are up before testing
+        run: |
+          kubectl rollout status deployment/nginx-frontend --timeout=60s
+
+      - name: Test App inside Cluster   # Step 9: Run curl test from inside the cluster
+        run: |
+          kubectl run curl-pod --image=curlimages/curl --rm -it --restart=Never \
+            -- curl http://nginx-frontend:80
+          # Creates a temporary pod with curl image
+
+          # Deletes curl pod automatically after run
