@@ -42,7 +42,7 @@ jobs:
               kubectl run curl-pod \
                 --image=curlimages/curl:8.0 \
                 --restart=Never \
-                -- curl -s -o /dev/null -w "%{http_code}" http://my-service:8080
+                -- curl -s -o /dev/null -w "%{http_code}" http://nginx-frontend:8080
           # Creates a temporary pod with curl image
 
           # Deletes curl pod automatically after run
