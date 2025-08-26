@@ -24,6 +24,12 @@ jobs:
         docker tag myapp:latest ${DOCKER_IMAGE}:latest
         docker push ${DOCKER_IMAGE}:latest
 
+    - name: Build Docker image
+      uses: ThomasKliszowski/setup-kubectl@v1
+      with:
+        kube-version: latest
+          
+
 
 
 
