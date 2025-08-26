@@ -34,14 +34,10 @@ jobs:
         minikube start # since it is on gitub hosted runner, minikube is pre installed.If running on self hosted runner, then need to install minkube using actions. 
         kubectl config use-context minikube #to ensure that subsequent kubectl commands interact with the Minikube cluster.
                  
-        echo "Waiting for Minikube pods to become ready..."
+        echo "Waiting for Minikube control plane pods to become ready..."
+        kubectl wait --for=condition=ready pod -l component=kube-apiserver -n kube-system --timeout=300s
           
-          # This loop waits up to 5 minutes for control plane pods to become ready
-        timeout 300s bash -c '
-          until kubectl get pods --all-namespaces | grep "Running" | grep "1/1" | grep -q "kube-apiserver"; do
-            echo "Waiting for kube-apiserver to be ready..."
-            sleep 5
-          done
+        echo "Minikube control plane is ready. Proceeding with deployment."
             
         kubectl apply -f deployment.yaml
         kubectl get pods --all-namespaces
