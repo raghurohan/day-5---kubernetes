@@ -49,6 +49,12 @@ jobs:
         kubectl get pods --all-namespaces
         kubectl get svc
 
+              - name: Get service URL
+        id: get-service-url
+        run: |
+          SERVICE_URL=$(minikube service your-service-name --url)
+          echo "::set-output name=url::$SERVICE_URL"
+
 
 
 
