@@ -40,6 +40,11 @@ jobs:
         echo "Minikube control plane is ready. Proceeding with deployment."
             
         kubectl apply -f deployment.yaml
+        
+        # Wait for your specific deployment to be rolled out and available
+        echo "Waiting for springboot-deployment to be ready..."
+        kubectl rollout status deployment/springboot-deployment --timeout=300s
+        
         kubectl get pods --all-namespaces
 
 
