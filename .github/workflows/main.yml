@@ -1,8 +1,7 @@
 name: nginx                     # Name of the workflow shown in GitHub Actions tab
 
 on:                             # Events that trigger this workflow
-  push:                         # Run workflow whenever code is pushed
-  workflow_dispatch:            # Also allow manual trigger from GitHub Actions UI
+  workflow_dispatch:            # only allow manual trigger from GitHub Actions UI
 
 jobs:
   ci-cd:                        # Job name
