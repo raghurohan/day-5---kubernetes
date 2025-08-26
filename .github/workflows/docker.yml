@@ -47,6 +47,7 @@ jobs:
         kubectl rollout status deployment/springboot-deployment --timeout=300s
         
         kubectl get pods --all-namespaces
+        kubectl get svc
 
 
 
