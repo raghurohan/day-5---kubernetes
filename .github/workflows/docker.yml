@@ -30,8 +30,9 @@ jobs:
         version: latest # Version of kubectl.default is latest
 
     - name: Setup minikube
-      run: minikube start # since it is on gitub hosted runner, minikube is pre installed.If running on self hosted runner, then need to install minkube using actions. 
-
+      run: |
+        minikube start # since it is on gitub hosted runner, minikube is pre installed.If running on self hosted runner, then need to install minkube using actions. 
+        kubectl config use-context minikube #to ensure that subsequent kubectl commands interact with the Minikube cluster.
 
 
 
