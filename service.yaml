@@ -4,9 +4,9 @@ metadata:
   name: my-service
 spec:
   selector:
-    app: springboot
+    app: nginx-frontend
   type: NodePort
   ports:
     - protocol: TCP
       port: 80
-      targetPort: 8081
+      targetPort: 80
