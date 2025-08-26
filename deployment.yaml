@@ -1,21 +1,21 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: springboot-deployment
+  name: nginx-frontend
   labels:
-    app: springboot
+    app: nginx-frontend
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: springboot
+      app: nginx-frontend
   template:
     metadata:
       labels:
-        app: springboot
+        app: nginx-frontend
     spec:
       containers:
-      - name: c1
-        image: sonalivarshney/sampleapp:latest
+      - name: nginx-frontend
+        image: nginx:latest
         ports:
-        - containerPort: 8081
+        - containerPort: 80
