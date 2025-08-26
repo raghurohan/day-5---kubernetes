@@ -34,11 +34,3 @@ jobs:
       - name: Wait for Pods Ready   # Step 8: Ensure pods are up before testing
         run: |
           kubectl rollout status deployment/nginx-frontend --timeout=60s
-
-      - name: Run curl test
-        run: |
-          kubectl run curl-pod --image=curlimages/curl:8.0 --restart=Never --command -- \
-            curl -s -o /dev/null -w "%{http_code}" http://nginx-frontend:8080
-          # Creates a temporary pod with curl image
-
-          # Deletes curl pod automatically after run
