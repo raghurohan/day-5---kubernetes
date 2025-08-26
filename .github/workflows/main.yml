@@ -26,8 +26,8 @@ jobs:
 
       - name: Deploy to Kubernetes   # Step 7: Apply your manifests
         run: |
-          kubectl apply -f k8s/deployment.yml      # Deploy your app pods
-          kubectl apply -f k8s/service.yml         # Expose service for the app
+          kubectl apply -f deployment.yml      # Deploy your app pods
+          kubectl apply -f service.yml         # Expose service for the app
 
       - name: Wait for Pods Ready   # Step 8: Ensure pods are up before testing
         run: |
