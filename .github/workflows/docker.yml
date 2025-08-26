@@ -48,9 +48,9 @@ jobs:
         
         kubectl get pods --all-namespaces
         kubectl get svc
-
-    - name: Get service URL and curl it
-      run: curl $(minikube service my-service --url)
+     
+        #Get service URL and curl it
+        curl $(minikube service my-service --url)
           
 
 
