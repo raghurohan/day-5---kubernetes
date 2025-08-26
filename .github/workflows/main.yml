@@ -28,6 +28,8 @@ jobs:
         run: |
           kubectl apply -f deployment.yml      # Deploy your app pods
           kubectl apply -f service.yml         # Expose service for the app
+          kubectl get pods
+          kubectl get svc
 
       - name: Wait for Pods Ready   # Step 8: Ensure pods are up before testing
         run: |
@@ -35,8 +37,12 @@ jobs:
 
       - name: Test App inside Cluster   # Step 9: Run curl test from inside the cluster
         run: |
-          kubectl run curl-pod --image=curlimages/curl --rm -it --restart=Never \
-            -- curl http://nginx-frontend:80
+          - name: Run curl test
+            run: |
+              kubectl run curl-pod \
+                --image=curlimages/curl:8.0 \
+                --restart=Never \
+                -- curl -s -o /dev/null -w "%{http_code}" http://my-service:8080
           # Creates a temporary pod with curl image
 
           # Deletes curl pod automatically after run
