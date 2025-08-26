@@ -25,10 +25,9 @@ jobs:
         docker push ${DOCKER_IMAGE}:latest
 
     - name: Build Docker image
-      uses: ThomasKliszowski/setup-kubectl@v1
+      uses: Azure/setup-kubectl@v4.0.0
       with:
-        kube-version: latest
-          
+        version: latest # Version of kubectl.default is latest
 
 
 
